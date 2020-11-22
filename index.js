@@ -51,7 +51,7 @@ const promptManagerTeam = () => {
         ])
         .then(({ name, id, email, role, officeNumber }) => {
             this.manager = new Manager(name, id, email, role, officeNumber);
-            // console.log(this.manager.getMgrInfo());
+            // console.log(Manager.getInfo());
             this.team.push(this.manager);
             // console.log(this.team);
             promptMemberTeam()
@@ -116,7 +116,7 @@ const promptMemberTeam = () => {
                     ])
                     .then(({ name, id, email, role, github, school }) => {
                         if (role === 'engineer') {
-                            this.engineer = new Engineer( name, id, email, role, github, school );
+                            this.engineer = new Engineer( name, id, email, role, github );
                             // console.log(this.engineer.getEngInfo());
                             this.team.push(this.engineer);
                             // console.log(this.team);
@@ -133,7 +133,6 @@ const promptMemberTeam = () => {
             } else {
                 console.log('Your team page has been generated');
                 teamArray = this.team
-                // console.log(teamArray);
                 console.log(teamArray);
                 return teamArray;
             }
@@ -141,6 +140,10 @@ const promptMemberTeam = () => {
         });
 };
 promptManagerTeam()
+.then(() => generatePage (teamArray))
+.then(pageHTML => {
+    return writeFile(pageHTML)
+});
 
 
 
