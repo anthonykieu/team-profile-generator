@@ -2,17 +2,12 @@ const inquirer = require('inquirer');
 const Manager = require('./lib/Manager.js');
 const Engineer = require('./lib/Engineer.js');
 const Intern = require('./lib/Intern.js');
-// const { requiresArg } = require('yargs');
-// const { runInThisContext } = require('vm');
+const { generatePage, writeFile, copyFile } = require('./src/page-template');
 
-// const { writeFile, copyFile } = require('./utils/generate-site.js');
-
-const generatePage = require('./src/page-template');
-
+let team = [];
 
 const promptManagerTeam = () => {
-    this.team = [];
-    this.manager;
+
     inquirer
         .prompt([
             {
@@ -29,9 +24,10 @@ const promptManagerTeam = () => {
                 }
             },
             {
-                type: 'input',
+                type: 'list',
+                message: 'What is your title?',
                 name: 'role',
-                message: 'What is your role?'
+                choices: ['Manager']
             },
             {
                 type: 'input',
@@ -41,7 +37,14 @@ const promptManagerTeam = () => {
             {
                 type: 'input',
                 name: 'email',
-                message: 'What is your email?'
+                message: 'What is your email?',
+                validate: emailInput => {
+                    if (emailInput.includes('@')) {
+                        return true;
+                    } else {
+                        return('Please enter a valid email!');
+                    }
+                }
             },
             {
                 type: 'input',
@@ -49,16 +52,18 @@ const promptManagerTeam = () => {
                 message: 'What is your office number?'
             },
         ])
-        .then(({ name, id, email, role, officeNumber }) => {
-            this.manager = new Manager(name, id, email, role, officeNumber);
-            // console.log(Manager.getInfo());
-            this.team.push(this.manager);
-            // console.log(this.team);
+        .then(({ name, id, email, officeNumber }) => {
+            this.manager = new Manager(name, id, email, officeNumber);
+            team.push(this.manager);
+            // managerArray = this.manager;
+            console.log(team);
             promptMemberTeam()
         })
 };
 
 const promptMemberTeam = () => {
+
+
     inquirer
         .prompt({
             type: 'list',
@@ -75,7 +80,7 @@ const promptMemberTeam = () => {
                             type: 'list',
                             message: 'Which team member would you like to add?',
                             name: 'role',
-                            choices: ['engineer', 'intern']
+                            choices: ['Engineer', 'Intern']
                         },
                         {
                             type: 'input',
@@ -104,63 +109,42 @@ const promptMemberTeam = () => {
                             type: 'input',
                             name: 'github',
                             message: 'What is the link to guthub empployee site?',
-                            when: (answers) => answers.role === 'engineer'
+                            when: (answers) => answers.role === 'Engineer'
                         },
                         {
                             type: 'input',
                             name: 'school',
                             message: 'What is the school intern is attending?',
-                            when: (answers) => answers.role === 'intern'
+                            when: (answers) => answers.role === 'Intern'
                         }
 
                     ])
                     .then(({ name, id, email, role, github, school }) => {
-                        if (role === 'engineer') {
-                            this.engineer = new Engineer( name, id, email, role, github );
-                            // console.log(this.engineer.getEngInfo());
-                            this.team.push(this.engineer);
-                            // console.log(this.team);
+                        if (role === 'Engineer') {
+                            this.engineer = new Engineer(name, id, email, github);
+                            team.push(this.engineer);
+                            console.log(team);
                             promptMemberTeam()
                         } else {
-                            this.intern = new Intern(name, id, email, role, school);
-                            // console.log(this.intern.getInternInfo());
-                            this.team.push(this.intern);
-                            // console.log(this.team);
+                            this.intern = new Intern(name, id, email, school);
+                            team.push(this.intern);
+                            console.log(team);
                             promptMemberTeam()
                         }
                     })
 
             } else {
                 console.log('Your team page has been generated');
-                teamArray = this.team
-                console.log(teamArray);
-                return teamArray;
+                console.log(team);
+                
+                const htmlPage = generatePage(team);
+
+                writeFile(htmlPage);
+                copyFile()
             }
 
         });
+
 };
 promptManagerTeam()
-.then(() => generatePage (teamArray))
-.then(pageHTML => {
-    return writeFile(pageHTML)
-});
 
-
-
-    // .then(promptTeam)
-    // .then(portfolioData => {
-    //     return generatePage(portfolioData);
-    // })
-    // .then(pageHTML => {
-    //     return writeFile(pageHTML);
-    // })
-    // .then(writeFileResponse => {
-    //     console.log(writeFileResponse);
-    //     return copyFile();
-    // })
-    // .then(copyFileResponse => {
-    //     console.log(copyFileResponse);
-    // })
-    // .catch(err => {
-    //     console.log(err);
-    // });
