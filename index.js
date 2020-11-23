@@ -4,7 +4,7 @@ const Engineer = require('./lib/Engineer.js');
 const Intern = require('./lib/Intern.js');
 const { generatePage, writeFile, copyFile } = require('./src/page-template');
 
-let team = [];
+let employees = [];
 
 const promptManagerTeam = () => {
 
@@ -54,9 +54,9 @@ const promptManagerTeam = () => {
         ])
         .then(({ name, id, email, officeNumber }) => {
             this.manager = new Manager(name, id, email, officeNumber);
-            team.push(this.manager);
+            employees.push(this.manager);
             // managerArray = this.manager;
-            console.log(team);
+            console.log(employees);
             promptMemberTeam()
         })
 };
@@ -122,22 +122,22 @@ const promptMemberTeam = () => {
                     .then(({ name, id, email, role, github, school }) => {
                         if (role === 'Engineer') {
                             this.engineer = new Engineer(name, id, email, github);
-                            team.push(this.engineer);
-                            console.log(team);
+                            employees.push(this.engineer);
+                            console.log(employees);
                             promptMemberTeam()
                         } else {
                             this.intern = new Intern(name, id, email, school);
-                            team.push(this.intern);
-                            console.log(team);
+                            employees.push(this.intern);
+                            console.log(employees);
                             promptMemberTeam()
                         }
                     })
 
             } else {
                 console.log('Your team page has been generated');
-                console.log(team);
+                console.log(employees);
                 
-                const htmlPage = generatePage(team);
+                const htmlPage = generatePage(employees);
 
                 writeFile(htmlPage);
                 copyFile()

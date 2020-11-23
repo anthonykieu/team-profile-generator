@@ -1,6 +1,6 @@
 const fs = require("fs");
 
-const generatePage = (team) => {
+const generatePage = (employees) => {
     console.log(`Passed array from index.js`);
     return `
 <!DOCTYPE html>
@@ -17,7 +17,7 @@ const generatePage = (team) => {
     <header><h1>Team Dashboard</h1></header>
     <div class="container">
         <div class="row">
-        ${generateCard(team)}
+        ${generateCard(employees)}
     </div>  <!-- end row -->
     </div>  <!-- end container -->
       <!-- jQuery and JS bundle w/ Popper.js -->
@@ -28,11 +28,11 @@ const generatePage = (team) => {
     `
 };
 
-const generateCard = (team) => {
+const generateCard = (employees) => {
     // console.log("Generate card");
     return `   
-        ${team
-            .filter((member) => member.getRole() === "Manager")
+        ${employees
+            .filter((employee) => employee.getRole() === "Manager")
             .map(({ name, id, email, officeNumber }) => {
                 return `
             <div class="card">
@@ -52,8 +52,8 @@ const generateCard = (team) => {
             })
             .join('')}
         
-        ${team
-            .filter((member) => member.getRole() === "Engineer")
+        ${employees
+            .filter((employee) => employee.getRole() === "Engineer")
             .map(({ name, id, email, github }) => {
                 return `
             <div class="card">
@@ -73,8 +73,8 @@ const generateCard = (team) => {
             })
             .join('')}
         
-        ${team
-            .filter((member) => member.getRole() === "Intern")
+        ${employees
+            .filter((employee) => employee.getRole() === "Intern")
             .map(({ name, id, email, school }) => {
                 return `
             <div class="card">
