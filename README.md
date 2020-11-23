@@ -24,6 +24,10 @@
 
   ## Questions
   If you would like further information, you can go to my Github profile at https://github.com/anthonykieu.
+
+   ## Links
+   Video walkthrough:  https://drive.google.com/file/d/1dTX4OGv5v8vMYEVZSfGdvlp6tr-kpoSF/view
+   
   
   You can also reach me at my email at xxx.yahoo.com.
   
