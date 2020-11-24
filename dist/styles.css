@@ -1,0 +1,12 @@
+header h1 {
+    color: white;
+    text-align: center;
+    margin: 30px 0;
+    background-color: black;
+    padding: 30px;
+}
+
+.card {
+    display: flex;
+    margin-right: 10px;
+}

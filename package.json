@@ -1,7 +1,7 @@
 {
   "name": "team-profile-generator",
   "version": "1.0.0",
-  "description": "",
+  "description": "![NPM](https://img.shields.io/badge/Mozilla-License-orange)",
   "main": "index.js",
   "directories": {
     "lib": "lib"

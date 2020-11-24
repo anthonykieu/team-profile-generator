@@ -13,7 +13,12 @@
   * [Questions](#questions)
 
   ## Installation
-  Open the command line. Go to the https://github.com/anthonykieu/readme-generator and copy and clone the code. Go to https://nodejs.org/en/ and install Node.js. Open the command line and enter “npm init” to and “require install” to install modules and a command line interface. 
+  Open the command line. Go to the https://github.com/anthonykieu/team-profile-generator and copy and clone the code. Go to https://nodejs.org/en/ and install Node.js. Open the command line 
+  install the following:
+  
+  npm init
+  npm install inquirer
+  npm install jest 
 
   ## Usage
   Open the code in Visual Studio. In the command line, enter “node index.js” and enter answers.

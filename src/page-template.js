@@ -1,6 +1,6 @@
 const fs = require("fs");
 
-const generatePage = (employees) => {
+const generatePage = (team) => {
     console.log(`Passed array from index.js`);
     return `
 <!DOCTYPE html>
@@ -17,7 +17,7 @@ const generatePage = (employees) => {
     <header><h1>Team Dashboard</h1></header>
     <div class="container">
         <div class="row">
-        ${generateCard(employees)}
+        ${generateCard(team)}
     </div>  <!-- end row -->
     </div>  <!-- end container -->
       <!-- jQuery and JS bundle w/ Popper.js -->
@@ -28,17 +28,17 @@ const generatePage = (employees) => {
     `
 };
 
-const generateCard = (employees) => {
+const generateCard = (team) => {
     // console.log("Generate card");
     return `   
-        ${employees
-            .filter((employee) => employee.getRole() === "Manager")
+        ${team
+            .filter((member) => member.getRole() === "Manager")
             .map(({ name, id, email, officeNumber }) => {
                 return `
             <div class="card">
                 <div class="card-header">
                     <h5 class="card-title">${name}</h5>
-                    <h6 class="card-subtitle mb-2 text-muted"><i class="fas fa-mug-hot"></i> Manager</h6>
+                    <h6 class="card-subtitle mb-2 text-muted"><i class="fas fa-anchor"></i> Manager</h6>
                 </div>
             <div class="card-body">
             <ul class="list-group list-group-flush">
@@ -52,14 +52,14 @@ const generateCard = (employees) => {
             })
             .join('')}
         
-        ${employees
-            .filter((employee) => employee.getRole() === "Engineer")
+        ${team
+            .filter((member) => member.getRole() === "Engineer")
             .map(({ name, id, email, github }) => {
                 return `
             <div class="card">
                 <div class="card-header">
                     <h5 class="card-title">${name}</h5>
-                    <h6 class="card-subtitle mb-2 text-muted"><i class="fas fa-glasses"></i> Engineer</h6>
+                    <h6 class="card-subtitle mb-2 text-muted"><i class="fas fa-calculator"></i> Engineer</h6>
                 </div>
             <div class="card-body">
             <ul class="list-group list-group-flush">
@@ -73,14 +73,14 @@ const generateCard = (employees) => {
             })
             .join('')}
         
-        ${employees
-            .filter((employee) => employee.getRole() === "Intern")
+        ${team
+            .filter((member) => member.getRole() === "Intern")
             .map(({ name, id, email, school }) => {
                 return `
             <div class="card">
                 <div class="card-header">
                     <h5 class="card-title">${name}</h5>
-                    <h6 class="card-subtitle mb-2 text-muted"><i class="fas fa-user-graduate"></i> Intern</h6>
+                    <h6 class="card-subtitle mb-2 text-muted"><i class="fas fa-book-reader"></i> Intern</h6>
                 </div>
             <div class="card-body">
             <ul class="list-group list-group-flush">
@@ -117,7 +117,7 @@ const writeFile = fileContent => {
 
 const copyFile = () => {
     return new Promise((resolve, reject) => {
-        fs.copyFile('./src/style.css', './dist/style.css', err => {
+        fs.copyFile('./src/styles.css', './dist/styles.css', err => {
             // if there's an error, reject the Promise and send the error to the Promise's `.catch()` method
             if (err) {
                 reject(err);
