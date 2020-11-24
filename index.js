@@ -24,12 +24,6 @@ const promptManagerTeam = () => {
                 }
             },
             {
-                type: 'list',
-                message: 'What is your title?',
-                name: 'role',
-                choices: ['Manager']
-            },
-            {
                 type: 'input',
                 name: 'id',
                 message: 'What is your employee identification?'
@@ -55,7 +49,6 @@ const promptManagerTeam = () => {
         .then(({ name, id, email, officeNumber }) => {
             this.manager = new Manager(name, id, email, officeNumber);
             team.push(this.manager);
-            // managerArray = this.manager;
             console.log(team);
             promptMemberTeam()
         })
@@ -108,7 +101,7 @@ const promptMemberTeam = () => {
                         {
                             type: 'input',
                             name: 'github',
-                            message: 'What is the link to guthub empployee site?',
+                            message: 'What is the link to guthub employee site?',
                             when: (answers) => answers.role === 'Engineer'
                         },
                         {
